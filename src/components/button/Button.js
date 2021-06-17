@@ -1,14 +1,9 @@
 import React from "react";
 import styles from "./Button.module.css";
 
-// window.scrollTo({
-//   top: document.documentElement.scrollHeight,
-//   behavior: "smooth",
-// });
-
-const Button = () => {
+const Button = ({ addImgs }) => {
   return (
-    <button type="button" className={styles.Button}>
+    <button type="button" className={styles.Button} onClick={addImgs}>
       Load more
     </button>
   );

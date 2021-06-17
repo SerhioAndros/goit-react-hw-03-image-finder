@@ -14,7 +14,7 @@ class Form extends Component {
   handleSubmit = (evt) => {
     evt.preventDefault();
     const { search } = this.state;
-    if (!search.trim()) return alert("Please, input your request");
+    if (!search.trim()) return alert("Please, enter your request");
 
     this.props.onSubmit(search);
     this.setState({
