@@ -9,11 +9,10 @@ import Modal from "./modal/Modal";
 class App extends Component {
   state = {
     images: [],
-    showModal: false,
+    modalImg: "",
     page: 1,
     search: "",
   };
-
   componentDidUpdate(prevProps, prevState) {
     if (prevState.search !== this.state.search) {
       this.handleAddImgs();
@@ -45,29 +44,29 @@ class App extends Component {
     );
   };
 
-  //   handleLoadMore = () => {
-  //     if (this.state.images.length > 0) {
-  //       this.handleAddImgs();
+  handleChosenImg = (evt) => {
+    evt.preventDefault();
+    const { images } = this.state;
+    const currImg = images.find((img) => img.id === +evt.target.dataset.id);
+    this.setState({ modalImg: currImg });
+  };
 
-  //       window.scrollTo({
-  //         top: document.documentElement.scrollHeight,
-  //         behavior: "smooth",
-  //       });
-  //     }
-  //   };
+  closeModal = () => {
+    this.setState({ modalImg: "" });
+  };
 
   render() {
-    const { images, showModal } = this.state;
+    const { images, modalImg } = this.state;
     return (
       <>
         <Searchbar onSubmit={this.handleChangeSearch} />
         {images.length > 0 && (
           <>
-            <ImageGallery images={images} />
+            <ImageGallery images={images} onClick={this.handleChosenImg} />
             <Button addImgs={this.handleAddImgs} />
           </>
         )}
-        {showModal && <Modal image={images} />}
+        {modalImg && <Modal image={modalImg} closeModal={this.closeModal} />}
         {/* <GalleryLoader /> */}
       </>
     );
