@@ -1,6 +1,7 @@
 import React from "react";
 import { Component } from "react";
 import styles from "./Modal.module.css";
+import PropTypes from "prop-types";
 
 class Modal extends Component {
   state = { image: "" };
@@ -32,5 +33,13 @@ class Modal extends Component {
     );
   }
 }
+
+Modal.propTypes = {
+  closeModal: PropTypes.func.isRequired,
+  image: PropTypes.shape({
+    largeImageURL: PropTypes.string.isRequired,
+    tags: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default Modal;

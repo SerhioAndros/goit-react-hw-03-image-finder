@@ -5,13 +5,14 @@ import Button from "./button/Button";
 import { fetchImages } from "./services/imgs-api";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Modal from "./modal/Modal";
-// import { GalleryLoader } from "./loader/Loader";
+import { GalleryLoader } from "./loader/Loader";
 class App extends Component {
   state = {
     images: [],
     modalImg: "",
     page: 1,
     search: "",
+    loader: false,
   };
   componentDidUpdate(prevProps, prevState) {
     if (prevState.search !== this.state.search) {
@@ -32,16 +33,18 @@ class App extends Component {
   };
 
   handleAddImgs = () => {
+    this.toggleLoader();
     const { page, search } = this.state;
 
     const options = { page, search };
 
-    fetchImages(options).then((data) =>
+    fetchImages(options).then((data) => {
       this.setState((prevState) => ({
         images: [...prevState.images, ...data],
         page: prevState.page + 1,
-      }))
-    );
+      }));
+      this.toggleLoader();
+    });
   };
 
   handleChosenImg = (evt) => {
@@ -55,8 +58,12 @@ class App extends Component {
     this.setState({ modalImg: "" });
   };
 
+  toggleLoader = () => {
+    this.setState((prevState) => ({ loader: !prevState.loader }));
+  };
+
   render() {
-    const { images, modalImg } = this.state;
+    const { images, modalImg, loader } = this.state;
     return (
       <>
         <Searchbar onSubmit={this.handleChangeSearch} />
@@ -67,7 +74,7 @@ class App extends Component {
           </>
         )}
         {modalImg && <Modal image={modalImg} closeModal={this.closeModal} />}
-        {/* <GalleryLoader /> */}
+        {loader && <GalleryLoader />}
       </>
     );
   }
