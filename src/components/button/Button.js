@@ -2,16 +2,21 @@ import React from "react";
 import styles from "./Button.module.css";
 import PropTypes from "prop-types";
 
-const Button = ({ addImgs }) => {
+const Button = ({ btnName, addImgs }) => {
   return (
     <button type="button" className={styles.Button} onClick={addImgs}>
-      Load more
+      {btnName}
     </button>
   );
 };
 
+Button.defaultProps = {
+  btnName: "Just button",
+};
+
 Button.propTypes = {
   addImgs: PropTypes.func.isRequired,
+  btnName: PropTypes.string,
 };
 
 export default Button;

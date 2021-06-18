@@ -67,10 +67,10 @@ class App extends Component {
     return (
       <>
         <Searchbar onSubmit={this.handleChangeSearch} />
-        {images.length > 0 && (
+        {!!images.length && (
           <>
             <ImageGallery images={images} onClick={this.handleChosenImg} />
-            <Button addImgs={this.handleAddImgs} />
+            <Button addImgs={this.handleAddImgs} btnName={"Load more"} />
           </>
         )}
         {modalImg && <Modal image={modalImg} closeModal={this.closeModal} />}

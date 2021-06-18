@@ -4,9 +4,8 @@ import styles from "./Modal.module.css";
 import PropTypes from "prop-types";
 
 class Modal extends Component {
-  state = { image: "" };
+  state = {};
   componentDidMount() {
-    this.setState({ image: this.props.image });
     window.addEventListener("keydown", (evt) => {
       if (evt.code === "Escape") {
         this.props.closeModal();
@@ -21,13 +20,11 @@ class Modal extends Component {
     }
   };
   render() {
+    const image = this.props.image;
     return (
       <div className={styles.Overlay} onClick={this.onClickClose}>
         <div className={styles.Modal}>
-          <img
-            src={this.state.image.largeImageURL}
-            alt={this.state.image.tags}
-          />
+          <img src={image.largeImageURL} alt={image.tags} />
         </div>
       </div>
     );
